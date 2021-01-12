@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="/js/vue.js"></script>
+</head>
+<style>
+    .hengxian{
+        text-decoration: solid;
+        color: #cccccc;
+    }
+    .finish{
+        color: gray;
+        text-decoration: line-through;
+    }
+</style>
+<body>
+       
+    <div id="box">
+        <h1>任务列表</h1>
+        <h4>任务总数{{arr.length}};还有{{getUnFinish()}}未完成;【<a href="#" @click="add()">完成</a>】</h4>
+        <ul >
+            <li v-for="(item,index) in arr">
+                <input type="checkbox" v-model="item.isFinish">
+                <span v-show="!item.isEdit" :class="{finish:item.isFinish}" @click="edit(index)">{{item.uname}}</span>
+                <input type="text" v-show="item.isEdit" v-model="item.uname" @blur="item.isEdit=false">
+            </li>
+        </ul>
+                        <!--   绑定输入内容  -->
+        <input type="text" v-model="msg"><button @click=finish()>添加</button>
+    </div>
+    <script >
+        let vm = new Vue({
+            el:"#box",
+            data:{
+                arr:[
+                    {uname:'设计1',isFinish:false,isEdit:false},
+                    {uname:'设计2',isFinish:false,isEdit:false},
+                    {uname:'设计3',isFinish:false,isEdit:false},
+                ],
+                //存储空的信息
+                msg:''
+            },
+            methods:{
+               getUnFinish(){
+                //初始数字为0
+                let count =0;
+                this.arr.forEach(item => {
+                    if(!item.isFinish)count++;
+                });
+                return count;
+               },
+               add(){
+                   //重新创建一个新的arr
+                   let newarr = this.arr;
+                   //清空arr
+                   this.arr=[];
+                   //遍历
+                   newarr.forEach(item=>{
+                       //如果isFinish不为ture。 
+                       if(!item.isFinish){
+                           //把isFinish不为ture的。添加进arr里
+                           this.arr.push(item);
+                       }
+                   })
+               },
+               finish(){
+                   //给arr添加一个新的信息
+                   this.arr.push({
+                       //输入的什么。就往msg里存什么
+                       uname:this.msg,
+                       isFinish:false,
+                       isEdit:false
+                   });
+                   //添加完成后清空
+                   this.msg=""
+               },
+               edit(index){
+                   if(this.arr[index].isFinish) return;//已完成的不执行
+                   console.log(index);
+                   //点击时。修改当前的isEdit为true
+                   this.arr[index].isEdit=true;
+               }
+            }
+        });
+       
+    </script>
+</body>
+</html>

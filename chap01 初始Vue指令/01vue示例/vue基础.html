@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- 第一步。 引入vue.js -->
+
+    <script src="/js/vue.js"></script>
+</head>
+<!-- 
+    为什么要学习 Vue
+    第一 企业需求， 第二。 市场需求。 第三。 提高工作效率
+    解决之前前端的复杂dom的操作
+
+    框架和库的区别
+    框架 ： 是一套完整的解决方案。 封装的是与业务无关的代码。一旦切换框架。 
+            几乎代码重写。 例如vue更换React
+    库 ： 封装好的js代码。切换比较简单。例如： jquery更换Zepto
+
+    Vue的使用场景
+
+    如果项目中还在使用jquery频繁的操作dom元素的话。 可以尝试更换成vue来解决dom操作
+
+    如果项目重复内容较多。 也可以使用vue来解决。封装成组件提高代码的复用
+
+    vue简介
+
+    vue.js是目前最流行。 国产的前端MVVM框架。 
+    作者是尤雨溪。前Google员工
+    vue.js正式发布于2014年2月
+    在开发人数上。覆盖70多贡献者。
+    在受关注度上。 github上拥有13W多star
+
+
+    Mvc和MVVM 的区别
+
+    MVC模式 主要是对后台代码工作内容不同的分工
+
+    MVVM ： Model： 负责数据存储
+
+    VIew： 负责页面展示
+
+    View Model： 负责业务逻辑处理（比如Ajax 请求等） 对数据进行加工后交给视图展示
+ -->
+<body>
+    <!-- 第二部。 创建view 视图层。  显示数据 -->
+    <div id="box">
+        {{temp}}
+        <input type="text" v-model="temp">
+    </div>
+</body>
+<script >
+    // 第三部。  创建model层。 实例化vue对象
+    let vm = new Vue({
+        el:"#box",
+        //变量数据
+        data:{
+            temp:"张三"
+        },
+        //函数 方法
+        methods :{
+            //方法1...
+
+        },
+    })
+</script>
+</html>

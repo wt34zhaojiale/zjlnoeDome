@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+<script src="../js/vue.js"></script>
+<style>
+    .gr{
+        background: darkblue;
+        width: 100px;
+        height: 50px;
+        color: white;
+        line-height: 50px;
+    }
+    .bg{
+        width: 200px;
+        height: 50px;
+        color: white;
+        line-height: 50px;
+        background: crimson;
+    }
+</style>
+</head>
+<body>
+    <div id="box">
+    <span v-for="(item,index) in title"  :class="item.active?'bg':'gr'"  @click="clickSpan(index)">
+       {{item.titleText}}
+    </span>
+    <div>
+        你选择了: <span class="gr">{{showText}}</span>
+    </div>
+</div>
+</body>
+<script>
+     let vm = new Vue({
+        el:"#box",
+        data:{
+            showText:"HTML",
+            title:[
+                {titleText:"HTML",active:1},
+                {titleText:"CSS",active:0},
+                {titleText:"JavaScript",active:0},
+                {titleText:"Vue.js",active:0},
+            ]
+        },
+        methods:{
+           clickSpan(index){
+               for(let i in this.title){
+                   this.title[i].active=0;
+               }
+               this.title[index].active=1;
+               this.showText =this.title[index].titleText
+           }
+        }
+    })
+</script>
+</html>

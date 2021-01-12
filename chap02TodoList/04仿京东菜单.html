@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="/chap02 TodoList/js/vue.js"></script>
+</head>
+<style>
+    *{
+        margin: 0;
+        padding: 0;
+    }
+    #box{
+        width: 180px;
+        height: 200px;
+        background-color: #c81622;
+        color: white;
+        position: relative;
+    }
+    #box h3{
+        background-color: #b3191b;
+        width: 180px;
+        height: 30px;
+        line-height: 30px;
+    }
+    #box ul li{
+        list-style: none;
+        margin-top: 10px;
+    }
+    span{
+        position: absolute;
+        right: 10px;
+    }
+</style>
+<body>
+    <div id="box">
+        <h3>全部商品分类</h3>
+        <ul>
+            <li v-for="(item,index) in arr">
+                {{item.name}}<span>></span>
+            </li>
+            
+        </ul>
+
+    </div>
+</body>
+
+<script>
+ let vm = new Vue({
+     el:"#box",
+     data:{
+         arr:[
+             {name:'家用电器'},
+             {name:'手机 数码 相机'},
+             {name:'电脑 办公'},
+             {name:'家具 家居 家装'},
+             {name:'男装 女装 珠宝'},
+             {name:'鞋靴 箱包 钟表'}
+         ],
+     }
+ })
+</script>
+</html>

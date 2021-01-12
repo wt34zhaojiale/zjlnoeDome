@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="/chap02 TodoList/js/vue.js"></script>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        #box{
+            width: 500px;
+            height: 200px;
+            border: #a6c53a 1px solid;
+        }
+        #box p{
+            margin-left: 150px;
+            color: #798c91;
+            font-size: 30px;
+        }
+        #box input{
+            width: 200px;
+            height: 50px;
+            border: 5px solid seagreen;
+            margin-top: 100px;
+            margin-left: 130px;
+        }
+    </style>
+</head>
+<body>
+    <div id="box">
+        <p  @click="dianji()"><img src="/chap02 TodoList/img/pic.png">{{name}}</p>
+        <input type="text" v-model="name" v-show="isFinish">
+    </div>
+    
+</body>
+<script>
+ let vm =new Vue({
+     el:"#box",
+     data:{
+         name:'Edit Me',
+         isFinish:true ,
+     },
+     methods:{
+         dianji(){
+        this.isFinish = !this.isFinish
+         }
+     }
+ })
+</script>
+</html>
