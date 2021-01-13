@@ -1,20 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <script src="/chap02TodoList 赵佳乐/js/vue.js"></script>
     <style>
-        fieldset{
+        fieldset {
             width: 600px;
             height: 300px;
             border: 2px solid #9ec3c1;
         }
-        fieldset div{
+
+        fieldset div {
             margin-top: 20px;
         }
-        fieldset button{
+
+        fieldset button {
             margin-top: 30px;
             width: 100px;
             height: 30px;
@@ -22,115 +25,147 @@
             background-color: #40acc8;
             color: white;
         }
-       .student{
-           width: 620px;
-           border: 3px solid #40acc8;
-        margin-top: 50px;
+
+        .student {
+            width: 620px;
+            border: 3px solid #40acc8;
+            margin-top: 50px;
 
 
-       }
-       table:nth-of-type(1){
-           width: 620px;
-           height: 40px;
-           background-color: #40acc8;
-           color: white;
-       }
-       .show{
-           width: 620px;
-           height: 40px;
-       }
-       .show th{
-           width: 120px;
-           
-       }
-       .show th:nth-of-type(4){
-           width: 120px;
-       }
-       .show th:nth-of-type(5){
-           width: 120px;
-       }
-       .show th:nth-of-type(5) button{
-           height: 20px;
-           width: 50px;
-           background-color: #40acc8;
-           border: none;
-           color: white;
-       }
-       .show:nth-child(even){
-           background-color: #ebebeb;
-       }
+        }
+
+        table:nth-of-type(1) {
+            width: 620px;
+            height: 40px;
+            background-color: #40acc8;
+            color: white;
+        }
+
+        .show {
+            width: 620px;
+            height: 40px;
+        }
+
+        .show th {
+            width: 120px;
+
+        }
+
+        .show th:nth-of-type(4) {
+            width: 120px;
+        }
+
+        .show th:nth-of-type(5) {
+            width: 120px;
+        }
+
+        .show th:nth-of-type(5) button {
+            height: 20px;
+            width: 50px;
+            background-color: #40acc8;
+            border: none;
+            color: white;
+        }
+
+        .show:nth-child(even) {
+            background-color: #ebebeb;
+        }
+        fieldset span{
+            color: red;
+        }
     </style>
 </head>
+
 <body>
     <div id="box">
         <fieldset>
             <legend>学生信息录入系统</legend>
-            <div>姓名：<input type="text" v-model="msg.name"></div>
-            <div> 年龄：<input type="text" v-model="msg.nianl"></div>
+            <div>姓名：<input type="text" v-model="msg.name" @input='check("name")'><span v-show="!checkstu.name">4-16位（字母，数字，下划线）</span></div>
+            <div> 年龄：<input type="text" v-model="msg.nianl" @input='check("nianl")'><span v-show="!checkstu.nianl">请输入正确的年龄</span></div>
             <div>
-                 <label for="">性别</label>
-                 <select  v-model="msg.age" >
-                     <option value="男" selected>男</option>
-                <option value="女">女</option>
-            </select>
-        </div>
-            <div>手机：<input type="text" placeholder="请输入手机号" v-model="msg.emai"></div>
+                <label for="">性别</label>
+                <select v-model="msg.age">
+                    <option value="男" selected>男</option>
+                    <option value="女">女</option>
+                </select>
+            </div>
+            <div>手机：<input type="text" placeholder="请输入手机号" v-model="msg.emai" @input='check("emai")'><span v-show="!checkstu.emai">请输入11位手机号</span></div>
 
-            <button @click="tianjia()" >创建新用户</button>
+            <button @click="tianjia()">创建新用户</button>
         </fieldset>
         <div class="student">
-           <table>
-               <tr>
-                   <th>姓名</th>
-                   <th>性别</th>
-                   <th>年龄</th>
-                   <th>手机</th>
-                   <th>删除</th>
+            <table>
+                <tr>
+                    <th>姓名</th>
+                    <th>性别</th>
+                    <th>年龄</th>
+                    <th>手机</th>
+                    <th>删除</th>
                 </tr>
-           </table>
-           <table class="show" v-for="(item,index) in arr">
-            <tr>
-                <th>{{item.name}}</th>
-                <th >{{item.age}}</th>
-                <th >{{item.nianl}}</th>
-                <th>{{item.emai}}</th>
-                <th><button @click="add(index)">删除</button></th>
-             </tr>
-           </table>
+            </table>
+            <table class="show" v-for="(item,index) in arr">
+                <tr>
+                    <th>{{item.name}}</th>
+                    <th>{{item.age}}</th>
+                    <th>{{item.nianl}}</th>
+                    <th>{{item.emai}}</th>
+                    <th><button @click="add(index)">删除</button></th>
+                </tr>
+            </table>
         </div>
     </div>
-    
+
 </body>
 <script>
-    let vm =new Vue({
-        el:"#box",
-        data:{
-            arr:[
-                {name:"方君豪",age:'男',nianl:20,emai:'15475647892'},
-                {name:"乔向燕",age:'女',nianl:28,emai:'17895466547'},
-                {name:"路傲娇",age:'男',nianl:22,emai:'13245678952'},
-                {name:"村琴韵",age:'女',nianl:21,emai:'17456789487'}
+    let vm = new Vue({
+        el: "#box",
+        data: {
+            arr: [
+                { name: "方君豪", age: '男', nianl: 20, emai: '15475647892' },
+                { name: "乔向燕", age: '女', nianl: 28, emai: '17895466547' },
+                { name: "路傲娇", age: '男', nianl: 22, emai: '13245678952' },
+                { name: "村琴韵", age: '女', nianl: 21, emai: '17456789487' }
             ],
-            msg:[],
+            msg:{name:'',age:'男',nianl:'',emai:''},
+            checkstu:{name:true,nianl:true,emai:true}
         },
-        methods:{
-            tianjia(){
-                
-                this.arr.push({
-                    name:this.msg.name,
-                    age:this.msg.age,
-                    nianl:this.msg.nianl,
-                    emai:this.msg.emai,
-                   
-                });
-                this.msg="";
+        methods: {
+            // 添加
+            tianjia() {
+                this.check("name")
+                this.check("nianl")
+                this.check("emai")
+                for(let i in this.checkstu){
+                    if(this.checkstu[i]==false){
+                        return
+                    }
+                }
+                this.arr.push(this.msg)
+                this.msg={name:'',age:'男',nianl:'',emai:""}
             },
-            add(index){
-                this.arr.splice(index,1)
+            // 删除
+            add(index) {
+                this.arr.splice(index, 1)
+            },
+            check(id){
+                if(id=="name"){
+                    let reg = /^[\w]{4,16}|[\u4e00-\u9fa5]{4,16}$/
+                    this.checkstu.name=reg.test(this.msg.name)
+                    return
+                }else if(id=="nianl"){
+                    let reg=/^(?:[1-9][0-9]?|1[01][0-9]|120)$/
+                    this.checkstu.nianl=reg.test(this.msg.nianl)
+                    return
+                }else if(id=="emai"){
+                    let reg =/^1[3456789]\d{9}$/
+                    this.checkstu.emai=reg.test(this.msg.emai)
+                    return
+                }
             }
-           
+
         }
     })
-    
+
 </script>
+
 </html>
