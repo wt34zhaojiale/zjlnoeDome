@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="/chap02TodoList 赵佳乐/js/vue.js"></script>
+    <style>
+        .nav{
+            padding-left: 45px;
+            width: 400px;
+            height: 50px;
+            background-color: #cfeef0;
+            color: #5c6a76;
+        }
+        .box{
+            width: 420px;
+            height: 50px;
+        }
+        .box tr td{
+            width: 100px;
+            text-align: left;
+            text-align: center;
+        }
+        .box tr td:nth-of-type(3){
+            padding-left: 30px;
+        }
+        .box tr td:nth-of-type(4){
+            padding-left: 20px;
+        }
+        
+    </style>
+</head>
+<body>
+    <table class="nav">
+        <tr>
+            <th>商品名称</th>
+            <th>商品单价</th>
+            <th>商品数量</th>
+            <th>操作</th>
+        </tr>
+    </table>
+    <div id="box">
+    <table class="box">
+        <tr  v-for="(item,index) in arr">
+            <td>{{item.sum}}</td>
+            <td>{{item.name}}</td>
+            <td>{{item.jiage}}</td>
+            <td><button @click="jian(index)">-</button>{{item.shuliang}}<button @click="jia(index)" >+</button></td>
+            <td><button @click="add(index)">移除</button></td>
+        </tr>
+    </table>
+    <p>总价：￥{{total()}}</p>
+</div>
+</body>
+<script>
+let vm =new Vue({
+    el:"#box",
+    data:{
+        arr:[
+            {sum:"1",name:'iPhone X',jiage:7999,shuliang:1},
+            {sum:"2",name:'荣耀10',jiage:2399,shuliang:1},
+            {sum:"3",name:'华为P20',jiage:3399,shuliang:1},
+            {sum:"4",name:'小米8',jiage:3999,shuliang:1},
+        ],
+    
+    },
+    methods:{
+        // 数量+ 
+        jia(index){
+            console.log(index);
+            this.arr[index].shuliang++;
+        },
+        // 数量 -
+        jian(index){
+            // 如果数量大于1，让他可以减。如果小于1，就不可以减了
+           if(this.arr[index].shuliang>1){
+            this.arr[index].shuliang--;
+           }
+        },
+        // 删除
+        add(index){
+            this.arr.splice(index,1)
+        },
+        // 总价
+        total(){
+            // 创建新的
+            let all =0;
+            this.arr.forEach(item => {
+                all += item.jiage*item.shuliang;
+            });
+            return all.toLocaleString()
+        }
+    }
+})
+</script>
+</html>
