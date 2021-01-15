@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="/server/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+<body>
+    <div id="box">
+        <button @click="search2()">get 请求</button>
+    </div>
+</body>
+<script>
+    let vm =new Vue({
+        el:"#box",
+        data:{
+
+        },
+        //拦截器
+        mounted(){
+            //请求拦截器
+            axios.interceptors.request.use(function(config){
+                //发送之前做些什么
+                //统一增加加载动画
+                //统一增加请求头。公共的请求配置。 token
+                console.log("请求拦截器")
+                return config
+            },function(error){
+                //对于请求错误的
+                console.log("请求拦截器错误")
+                return Promise.reject(error)
+            });
+            //响应拦截器
+            axios.interceptors.response.use(function(response){
+                //响应前做些什么
+                console.log("响应拦截器");
+                response.data=10000
+                return response;
+            },function(error){
+                //响应错误处理
+                console.log("响应拦截器错误")
+                return Promise.reject(error)
+            })
+        },
+        methods:{
+            search2(){
+                axios.get("http://localhost:8000/get",{
+                    params:{
+                        a:100,
+                        b:100,
+                    }
+                }).then(res=>{
+                    console.log(res)
+                }).catch(err=>{
+                    console.log(err)
+                })
+            }
+        },
+    })
+</script>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="/server/axios.min.js"></script>
+    <script src="/server/vue.js"></script>
+</head>
+<body>
+    <!-- https://cnodejs.org/api/v1/topics -->
+    <div id="box">
+        <ul>
+            <li v-for="(item,index) in msg">
+                <div>
+                    <img :src="item.author.avatar_url" alt="">
+                    <span>{{item.reply_count}}/{{item.visit_count}}</span>
+                    <span>
+                        {{item.title}}
+                    </span>
+                </div>
+                <div>
+                    {{item.create_at | rTime()}}
+                </div>
+            </li>
+        </ul>
+    </div>
+</body>
+<script>
+    let vm = new Vue({
+        el:"#box",
+        data:{
+            msg:{
+
+            }
+        },
+        mounted(){
+            axios.get("https://cnodejs.org/api/v1/topics")
+            .then(res=>{
+                this.msg = res.data.data
+            }).catch(err=>{
+                console.log(err)
+            })
+        },
+        filters :{
+            rTime(date){
+                return date.replace(/T/g,"").replace(/\.[\d]{3}Z/,"")
+            }
+        }
+    })
+</script>
+</html>

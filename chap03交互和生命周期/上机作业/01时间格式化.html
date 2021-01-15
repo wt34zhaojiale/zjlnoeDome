@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="/server/vue.js"></script>
+    <script src="/server/axios.min.js"></script>
+    <style>
+        #box{
+            width: 200px;
+            height: 100px;
+            border: 1px solid darkcyan;
+            text-align: center;
+            line-height: 100px;
+        }
+    </style>
+</head>
+<body>
+    <div id="box">
+        <!-- 过滤器 -->
+        {{msg|Change}}
+    </div>
+
+</body>
+<script>
+let vm = new Vue({
+    el:"#box",
+    // 用来存储初始时间
+    // 用来存储定时器
+    data:{
+       msg:null,
+       sss:null,
+    },
+    // 调用定时器
+    mounted:function(){
+        this.fn3();
+    },
+    beforeDestroy:function(){
+        console.log("jin")
+        //计时器停止
+        clearInterval(this.sss)
+    },
+    methods:{
+        fn2(){
+            this.msg=new Date();
+        },
+        fn3(){
+            this.sss= setInterval(this.fn2,1000);
+        }
+    },
+    // 设置时间规格
+    filters:{
+        Change:function(date){
+            var year = (date.getFullYear()).toString();
+            var month = (date.getMonth()+1).toString();
+            var day = (date.getDate()).toString();
+            var hours = (date.getHours()).toString();
+            var minute = (date.getMinutes()).toString();
+            var second = (date.getSeconds()).toString();
+            if(month.length == 1){
+                month = '0' + month;
+            }
+            if(day.length == 1){
+                day = '0' + day;
+            }
+            if(hours.length == 1){
+                hours = '0' + hours;
+            }
+            if(minute.length == 1){
+                minute = '0' + minute;
+            }
+            if(second.length == 1){
+                second = '0' + second;
+            }
+
+            var datetime = year +'-'+month +'-'+day+"-"+hours+':'+minute+':'+second
+            return datetime;
+        }
+    }
+})
+</script>
+</html>

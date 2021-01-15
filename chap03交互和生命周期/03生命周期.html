@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="/server/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+<body>
+    <div id="box">
+        <input type="text" v-model="msg">
+    </div>
+    <!-- 
+        创建: beforeCreate  created
+        挂载：beforeMount   mounted
+        更新：beforeUpdate  updated
+        销毁：beforeDestroy  destroyed
+     -->
+</body>
+<script>
+ let vm =new Vue({
+     el:"#box",
+     data:{
+        msg:"name"
+     },
+     //钩子函数
+     beforeCreate(){
+         console.group("-----------beforeCreate-------");
+         console.log('el:',this.$el,"data:",this.$data,"msg:",this.msg)
+     },
+     created(){
+         console.group("-----------created-------");
+         console.log('el:',this.$el,"data:",this.$data,"msg:",this.msg)
+         //el还没有创建   data和msg已经有了
+
+     },
+     beforeMount(){
+         console.group("-----------beforeMount-------");
+         console.log('el:',this.$el,"data:",this.$data,"msg:",this.msg)
+         //el虽然有标签。 但里面数据还没有渲染
+     },
+     mounted(){
+         console.group("-----------mounted-------");
+         console.log('el:',this.$el,"data:",this.$data,"msg:",this.msg)
+         //el已经创建完成了
+     },
+     beforeUpdate(){
+         console.group("-----------beforeUpdate-------");
+         console.log('el:',this.$el,"data:",this.$data,"msg:",this.msg)
+     },
+     updated(){
+         console.group("-----------updated-------");
+         console.log('el:',this.$el,"data:",this.$data,"msg:",this.msg)
+     },
+     beforeDestroy(){
+         console.group("-----------beforeDestroy-------");
+         console.log('el:',this.$el,"data:",this.$data,"msg:",this.msg)
+     },
+     destroyed(){
+         console.group("-----------destroyed-------");
+         console.log('el:',this.$el,"data:",this.$data,"msg:",this.msg)
+     },
+ })
+</script>
+</html>

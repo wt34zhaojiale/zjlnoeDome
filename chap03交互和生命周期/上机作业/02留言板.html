@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="/server/vue.js"></script>
+    <script src="/server/axios.min.js"></script>
+    <style>
+        #box ul li{
+            list-style: none;
+            border-bottom: 1px solid #cccccc;
+        }
+    </style>
+</head>
+<body>
+    <div id="box">
+        <button @click="dianji()">点击加载评论</button>
+        <ul>
+            <li v-for="(item,index) in arr">
+                <p>{{item.commentTxt}}</p>
+                <p>{{item.createAt}}</p>
+               
+            </li>
+        </ul>
+    </div>
+</body>
+<script>
+    let vm = new Vue({
+        el:"#box",
+        data:{
+            arr:[]
+        },
+        methods:{
+            dianji(){
+                axios.get("data.json")
+                .then(res=>{
+                    this.arr = res.data.data.commentList
+                    
+                }).catch(err=>{
+                    console.log(err)
+                })
+            }
+        }
+    })
+</script>
+</html>
